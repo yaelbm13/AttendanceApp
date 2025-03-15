@@ -3,6 +3,9 @@ import sqlite3
 from datetime import datetime
 
 app = Flask(__name__)
+@app.route("/")
+def home():
+    return "Welcome to the Attendance App!"
 
 # רשימת הדיירים
 tenants = [
