@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>צפייה בנתוני הנוכחות</title>
+</head>
+<body>
+    <h2>נתוני נוכחות</h2>
+    
+    <!-- טופס סינון לפי תאריך ודייר -->
+    <form method="GET">
+        <label for="date">בחר תאריך:</label>
+        <input type="date" name="date">
+        
+        <label for="tenant">בחר דייר:</label>
+        <select name="tenant">
+            <option value="">הצג את כולם</option>
+            {% for tenant in tenants %}
+                <option value="{{ tenant }}">{{ tenant }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit">סנן</button>
+    </form>
+
+    <!-- טבלה עם הנתונים -->
+    <table border="1">
+        <tr>
+            <th>תאריך</th>
+            <th>משמרת</th>
+            <th>שם דייר</th>
+            <th>נוכחות</th>
+            <th>הערות</th>
+            <th>אירועים חריגים</th>
+        </tr>
+        {% for row in records %}
+        <tr>
+            <td>{{ row.date }}</td>
+            <td>{{ row.shift }}</td>
+            <td>{{ row.tenant }}</td>
+            <td>{{ row.present }}</td>
+            <td>{{ row.notes }}</td>
+            <td>{{ row.event }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

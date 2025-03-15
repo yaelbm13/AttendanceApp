@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טופס נוכחות</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>טופס נוכחות</h2>
+    <form method="POST">
+        <label for="date">תאריך:</label>
+        <input type="date" id="date" name="date" value="{{ today }}" required>
+        
+        <label for="shift">משמרת:</label>
+        <select id="shift" name="shift" required>
+            <option value="בוקר">בוקר</option>
+            <option value="צהריים">צהריים</option>
+            <option value="ערב">ערב</option>
+        </select>
+        
+        <table>
+            <tr>
+                <th>שם הדייר</th>
+                <th>נוכחות</th>
+                <th>הערות</th>
+                <th>אירועים חריגים</th>
+            </tr>
+            {% for tenant in tenants %}
+            <tr>
+                <td>{{ tenant }}</td>
+                <td>
+                    <select name="present_{{ tenant }}">
+                        <option value="נוכח">נוכח</option>
+                        <option value="לא נוכח">לא נוכח</option>
+                    </select>
+                </td>
+                <td><input type="text" name="notes_{{ tenant }}"></td>
+                <td><input type="text" name="event_{{ tenant }}"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <button type="submit" class="submit-btn">שלח נוכחות</button>
+    </form>
+</body>
+</html>
